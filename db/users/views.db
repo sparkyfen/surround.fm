@@ -1,0 +1,22 @@
+{
+   "all": {
+       "map": "function(doc) {emit(null, doc) }",
+       "reduce": "_count"
+   },
+   "by_email": {
+       "map": "function(doc) {emit(doc.email, doc) }",
+       "reduce": "_count"
+   },
+   "by_user": {
+       "map": "function(doc) {emit(doc._id) }",
+       "reduce": "_count"
+   },
+   "by_lastfm_user": {
+       "map": "function(doc) {if(doc.lastfm.name) {emit(doc.lastfm.name, doc)}}",
+       "reduce": "_count"
+   },
+   "by_friend_id": {
+       "map": "function(doc) {if(doc.friends.length > 0) doc.friends.forEach(function(i) {emit(doc._id, i)}) }",
+       "reduce": "_count"
+   }
+}
