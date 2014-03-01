@@ -8,7 +8,7 @@
        "reduce": "_count"
    },
    "by_user": {
-       "map": "function(doc) {emit(doc._id) }",
+       "map": "function(doc) {emit(doc._id, doc) }",
        "reduce": "_count"
    },
    "by_lastfm_user": {

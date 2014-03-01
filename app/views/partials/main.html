@@ -1,21 +1,38 @@
 <div ng-include="'partials/navbar'"></div>
-
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
-</div>
-
-<div class="row marketing">
-  <div ng-repeat="thing in awesomeThings">
-      <h4>{{thing.name}}</h4>
-      <p>{{thing.info}}</p>
+<div id="mainContainer" class="container">
+  <div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+      <div id="registerContainer" class="jumbotron">
+        <alert ng-animate="'fadeOut'" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        <h3>Register</h3>
+        <form id="registerForm" name="registerForm" class="form-horizontal" ng-submit="register()" role="form" ng-init="registration = {}">
+          <div class="form-group">
+            <label for="registerUser">Username</label>
+            <input type="text" id="registerUser" required ng-model="registration.username" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">Email</label>
+            <input type="email" id="registerEmail" required ng-model="registration.email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="registerConfirmEmail">Confirm Email</label>
+            <input type="email" id="registerConfirmEmail" required ng-model="registration.confirmEmail" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" required ng-model="registration.password" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="registerConfirmPassword">Confirm Password</label>
+            <input type="password" id="registerConfirmPassword" required ng-model="registration.confirmPassword" class="form-control">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-success">Sign up</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-</div>
-
-<div class="footer">
-  <p>♥ from the Yeoman team</p>
 </div>

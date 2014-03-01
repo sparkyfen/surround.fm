@@ -1,0 +1,51 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="profileContainer" class="container">
+  <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+  <div class="jumbotron">
+    <img id="avatar-md" ng-src="{{profile.avatar}}">
+    <button class="btn btn-success" type="button" ng-click="editAvatar()" ng-show="!showAvatarEdit">Edit Avatar</button>
+    <form name="editAvatarForm" id="editAvatarForm" role="form" enctype="multipart/form-data" ng-show="showAvatarEdit" action="/api/editAvatar" method="POST" ng-upload="uploadComplete(content)">
+      <input type="file" id="avatarUpload" ng-model="avatar" name="avatar">
+      <input type="submit" value="Upload" ng-disabled="$isLoading"></input>
+    </form>
+    <accordion close-others="oneAtATime">
+    <accordion-group heading="Change Email" is-open="false">
+      <div id="changeEmailContainer">
+        <form name="changeEmailForm" id="changeEmailForm" class="form-horizontal" ng-submit="changeEmail()" role="form">
+          <div class="form-group">
+            <label for="profileEmail">Current Email</label>
+            <input type="email" name="email" id="profileEmail" class="form-control" required disabled ng-model="profile.email" placeholder="Current Email">
+          </div>
+          <div class="form-group">
+            <label for="newProfileEmail">New Email</label>
+            <input type="email" name="newEmail" id="newProfileEmail" class="form-control" required ng-model="profile.newEmail" placeholder="New Email">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-danger" ng-disabled="changeEmailForm.$invalid">Update</button>
+          </div>
+        </form>
+      </div>
+    </accordion-group>
+    <accordion-group heading="Change Password" is-open="false">
+      <div id="changePassContainer">
+        <form name="changePasswordForm" id="changePasswordForm" class="form-horizontal" ng-submit="changePassword()" role="form">
+          <div class="form-group">
+            <label for="profilePassword">Current Password</label>
+            <input type="password" id="profilePassword" class="form-control" required ng-model="profile.currentPassword" placeholder="Current Password">
+          </div>
+          <div class="form-group">
+            <label for="newProfilePassword">New Password</label>
+            <input type="password" id="newProfilePassword" class="form-control" required ng-model="profile.newPassword" placeholder="New Password">
+          </div>
+          <div class="form-group">
+            <label for="newConfirmProfilePassword">Confirm New Password</label>
+            <input type="password" id="newConfirmProfilePassword" class="form-control" ng-required ng-model="profile.newConfirmPassword" placeholder="Confirm New Password">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-danger" ng-disabled="changePasswordForm.$invalid">Update</button>
+          </div>
+        </form>
+      </div>
+    </accordion>
+  </div>
+</div>

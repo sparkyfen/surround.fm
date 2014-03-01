@@ -1,0 +1,13 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="searchContainer" class="container">
+  <div class="jumbotron">
+    <h2>Search Results</h2>
+    <ul id="searchList">
+      <li ng-repeat="user in results">
+        <a ng-href="{{user.id}}/profile"><img id="avatar-sm" ng-src="{{user.avatar}}"></a>
+        <span id="searchedUser"><a ng-href="{{user.id}}/profile">{{user.id}}</a></span> <span ng-show="user.lastfm.name">-</span> <b>{{user.lastfm.name}}</b>
+        <hr \>
+      </li>
+    </ul>
+  </div>
+</div>

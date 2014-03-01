@@ -1,0 +1,29 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="profileContainer" class="container">
+  <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+  <div class="jumbotron">
+    <img id="avatar-md" ng-src="{{profile.avatar}}">
+    <h3 id="profileID">{{profile._id}}</h3><span ng-show="profile.lastfm.name"> ({{profile.lastfm.name}})</span>
+    <div ng-show="profile.isOwnProfile" id="editProfile">
+      <a ng-href="/{{profile._id}}/profile/edit" type="button" class="btn btn-danger">Edit Profile</a>
+    </div>
+    <hr />
+    <h2>Friends</h2>
+    <h4 ng-show="profile.friends.length === 0">No Friends :(</h4>
+    <ul ng-show="profile.friends && profile.friends.length > 0">
+      <li ng-repeat="friend in profile.friends" id="friendList">
+        <a ng-href="{{friend}}/profile">{{friend}}</a>
+      </li>
+    </ul>
+    <hr />
+    <div id="topArtists">
+      <h2>Top Artists</h2>
+      <h4 ng-show="!profile.lastfm.topartists || profile.lastfm.topartists.length === 0">No Top Artists :(</h4>
+      <ul ng-show="profile.lastfm && profile.lastfm.topartists.length > 0">
+        <li ng-repeat="artist in profile.lastfm.topartists">
+          {{artist.name}} ({{artist.playcount}})
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
