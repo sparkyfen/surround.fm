@@ -12,7 +12,9 @@ TODO
     * Username, song name, artist, time
     * Possibly add a buy option
 
-* If user own the song, they can tune in with the other person around them. Song starts at the same time.
+* Find a way to figure out if they are listening to music at the time a user requests people around them.
+
+* If user owns the song, they can tune in with the other person around them. Song starts at the same time.
 
 * Possibly alert user when other people are listening to the same song they are.
 
@@ -30,3 +32,11 @@ API
 * Add friends
 * Delete friends
 * Search
+
+* Reduce the amount of data that gets sent back for each query.
+
+* Fix issue with modal not being displayed in production.
+    * https://github.com/angular-ui/bootstrap/issues/1947
+    * https://github.com/DaftMonk/generator-angular-fullstack/issues/135
+
+* Fix animation not occuring for alerts with ng-animate

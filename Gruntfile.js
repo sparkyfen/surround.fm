@@ -215,7 +215,6 @@ module.exports = function (grunt) {
         dest: '<%= yeoman.dist %>/public'
       }
     },
-
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       html: ['<%= yeoman.dist %>/views/{,*/}*.html',

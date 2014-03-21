@@ -18,5 +18,9 @@
    "by_friend_id": {
        "map": "function(doc) {if(doc.friends.length > 0) doc.friends.forEach(function(i) {emit(doc._id, i)}) }",
        "reduce": "_count"
+   },
+   "by_zipcode": {
+      "map": "function(doc) {if(doc.zipcode) {emit(doc.zipcode, doc)}}",
+      "reduce": "_count"
    }
 }

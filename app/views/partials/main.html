@@ -5,7 +5,6 @@
     </div>
     <div class="col-md-6">
       <div id="registerContainer" class="jumbotron">
-        <alert ng-animate="'fadeOut'" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
         <h3>Register</h3>
         <form id="registerForm" name="registerForm" class="form-horizontal" ng-submit="register()" role="form" ng-init="registration = {}">
           <div class="form-group">

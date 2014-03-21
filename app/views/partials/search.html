@@ -6,7 +6,7 @@
       <li ng-repeat="user in results">
         <a ng-href="{{user.id}}/profile"><img id="avatar-sm" ng-src="{{user.avatar}}"></a>
         <span id="searchedUser"><a ng-href="{{user.id}}/profile">{{user.id}}</a></span> <span ng-show="user.lastfm.name">-</span> <b>{{user.lastfm.name}}</b>
-        <hr \>
+        <hr />
       </li>
     </ul>
   </div>

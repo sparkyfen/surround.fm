@@ -1,6 +1,5 @@
 <div ng-include="'partials/navbar'"></div>
 <div id="profileContainer" class="container">
-  <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
   <div class="jumbotron">
     <img id="avatar-md" ng-src="{{profile.avatar}}">
     <h3 id="profileID">{{profile._id}}</h3><span ng-show="profile.lastfm.name"> ({{profile.lastfm.name}})</span>

@@ -1,0 +1,10 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="listContainer" class="container">
+  <h1>People around you</h1>
+  <ul>
+    <li ng-repeat="user in users">
+      <a ng-href="{{user.id}}/profile"><img id="avatar-sm" ng-src="{{user.avatar}}"></a>
+      <b><a ng-href="{{user._id}}/profile">{{user._id}}</a></b> - {{user.distance.miles}} miles away
+    </li>
+  </ul>
+</div>

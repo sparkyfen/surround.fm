@@ -1,4 +1,9 @@
-$cloudyBlue: "#428bca";
+$cloudyBlue: #428bca;
+$brand-primary: #428bca;
+$brand-success: #5cb85c;
+$brand-info:    #5bc0de;
+$brand-warning: #f0ad4e;
+$brand-danger:  #d9534f;
 
 html, body {
   height: 100%;
@@ -8,7 +13,7 @@ html, body {
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 body {
-  background: url(//placehold.it/1920x1080/428bca/ffffff/&text=Background%20holder) no-repeat center center fixed;
+  background: url(http://placehold.it/1920x1080/428bca/ffffff/&text=Background%20holder) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -63,6 +68,10 @@ div#profileContainer .panel-collapse {
   background: #eeeeee;
 }
 
+div#listContainer {
+  background: #eeeeee;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -85,4 +94,25 @@ div#profileContainer .panel-collapse {
   color: #777777;
   background: #e7e7e7;
   border-top: 1px solid #e5e5e5;
+}
+
+/*Alerts*/
+.alert-brand-success {
+  background: $brand-success;
+}
+
+.alert-brand-warning {
+  background: $brand-warning;
+}
+
+.alert-brand-danger {
+  background: $brand-danger;
+}
+
+.alert-brand-info {
+  background: $brand-info;
+}
+
+.alert-brand-primary {
+  background: $brand-primary
 }
