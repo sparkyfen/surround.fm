@@ -1,7 +1,7 @@
 /*jshint unused:false */
 'use strict';
 
-var surroundfmApp = angular.module('surroundfmApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngUpload', 'geolocation']).config(function ($routeProvider, $locationProvider) {
+var surroundfmApp = angular.module('surroundfmApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngUpload', 'geolocation', 'google-maps']).config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'partials/main',

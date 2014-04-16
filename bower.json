@@ -1,5 +1,6 @@
 {
   "name": "surroundfm",
+  "description": "Last.FM Beacon Backend",
   "version": "0.0.2",
   "dependencies": {
     "angular": "1.2.13",
@@ -13,7 +14,8 @@
     "sass-bootstrap": "~3.0.2",
     "angular-ui-bootstrap-bower": "~0.10.0",
     "ngUpload": "~0.5.9",
-    "angularjs-geolocation": "~0.1.1"
+    "angularjs-geolocation": "~0.1.1",
+    "angular-google-maps": "~1.0.18"
   },
   "devDependencies": {
     "angular-mocks": "1.2.13",

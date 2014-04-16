@@ -23,6 +23,14 @@ surroundfmApp.service('API', ['$http', function ($http) {
     search: function(query) {
       return $http.get('/api/searchFriends?q=' + query);
     },
+    addFriend: function(friendData) {
+      return $http({
+        url: '/api/addFriend',
+        method: 'POST',
+        data: $.param(friendData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
     getProfile: function(username) {
       return $http.get('/api/getProfile?username=' + username);
     },
@@ -60,10 +68,14 @@ surroundfmApp.service('API', ['$http', function ($http) {
     },
     getCloseUsers: function() {
       return $http.get('/api/getCloseUsers');
+    },
+    linkAccounts: function(accountData) {
+      return $http({
+        url: '/api/linkAccounts',
+        method: 'POST',
+        data: $.param(accountData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
     }
   };
-}]);
-
-surroundfmApp.service('Profile', [function () {
-  return {};
 }]);

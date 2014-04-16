@@ -2,6 +2,12 @@
   "name": "surroundfm",
   "description": "Last.FM Beacon Backend",
   "version": "0.0.2",
+  "repository": [
+    {
+      "type": "git",
+      "url": "https://github.com/brutalhonesty/surround.fm.git"
+    }
+  ],
   "dependencies": {
     "express": "~3.4.3",
     "lodash": "~2.4.1",
@@ -11,12 +17,14 @@
     "bcrypt": "~0.7.7",
     "connect-redis": "~1.4.7",
     "lastfm": "~0.9.0",
-    "googlemaps": "~0.1.9"
+    "googlemaps": "~0.1.9",
+    "helmet": "^0.2.1",
+    "colors": "^0.6.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
-    "grunt-bower-install": "~0.7.0",
+    "grunt-bower-install": "^1.4.0",
     "grunt-concurrent": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "~0.7.0",
@@ -54,13 +62,17 @@
     "karma-coffee-preprocessor": "~0.1.2",
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.9",
-    "karma-ng-html2js-preprocessor": "~0.1.0"
+    "karma-ng-html2js-preprocessor": "~0.1.0",
+    "supertest": "^0.11.0",
+    "assert": "^1.1.1",
+    "colors": "^0.6.2"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "install": "cp lib/config/env/all.js.template lib/config/env/all.js"
+    "_comment:test": "mocha test/node/mock/api.js && grunt test",
+    "test": "mocha test/node/mock/api.js",
+    "install": "cp lib/config/env/all.js.template lib/config/env/all.js && node db/install.js"
   }
 }

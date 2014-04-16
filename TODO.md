@@ -20,6 +20,8 @@ TODO
 
 * Add friends and see what they are listening to (Use last.fm friends?)
 
+* If you are listening with someone else that has an account. You (or they) can mark their account as listening together. Both accounts will get scrobbled till they are unmarked. Or use GPS to figure out if they have left from each other.
+
 API
 ---
 
@@ -35,8 +37,8 @@ API
 
 * Reduce the amount of data that gets sent back for each query.
 
-* Fix issue with modal not being displayed in production.
-    * https://github.com/angular-ui/bootstrap/issues/1947
-    * https://github.com/DaftMonk/generator-angular-fullstack/issues/135
+* ~~Fix issue with modal not being displayed in production.~~
+    * ~~https://github.com/angular-ui/bootstrap/issues/1947~~
+    * ~~https://github.com/DaftMonk/generator-angular-fullstack/issues/135~~
 
 * Fix animation not occuring for alerts with ng-animate

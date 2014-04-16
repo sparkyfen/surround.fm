@@ -1,1 +1,21 @@
 <div ng-include="'partials/navbar'"></div>
+<div id="mapContainer" class="container" ng-if="map.isReady">
+  <google-map
+  center="map.center"
+  zoom="map.zoom"
+  mark-click="true"
+  draggable="true"
+  latitude="map.clickedLatitudeProperty"
+  longitude="map.clickedLongitudeProperty"
+  control="map.control" ng-cloak>
+  <marker
+  ng-repeat="user in users"
+  coords="user.coordinates"
+  click="onMarkerClicked(user)">
+    <marker-label
+    content="user._id"
+    anchor="20 58"
+    class="marker-labels" />
+  </markers>
+  </google-map>
+</div>

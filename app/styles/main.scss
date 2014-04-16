@@ -12,6 +12,24 @@ html, body {
 /*For Angular-Ui*/
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+/* For google-maps directive */
+.angular-google-map-container {
+  display: block;
+  height: 450px;
+  width: 100%;
+}
+.marker-labels {
+  color: red;
+  background-color: white;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  width: 40px;
+  border: 1px solid black;
+  white-space: nowrap;
+}
+
 body {
   background: url(http://placehold.it/1920x1080/428bca/ffffff/&text=Background%20holder) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -34,7 +52,8 @@ h3#profileID {
   display: inline-block;
 }
 
-div#editProfile {
+div#editProfile,
+div#addFriend {
   float: right;
 }
 ul#searchList {

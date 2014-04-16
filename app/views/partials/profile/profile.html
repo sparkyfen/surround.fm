@@ -6,6 +6,9 @@
     <div ng-show="profile.isOwnProfile" id="editProfile">
       <a ng-href="/{{profile._id}}/profile/edit" type="button" class="btn btn-danger">Edit Profile</a>
     </div>
+    <div ng-show="!profile.isOwnProfile" id="addFriend">
+      <a ng-click="addFriend()" type="button" class="btn btn-success">Add Friend</a>
+    </div>
     <hr />
     <h2>Friends</h2>
     <h4 ng-show="profile.friends.length === 0">No Friends :(</h4>

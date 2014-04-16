@@ -35,7 +35,7 @@ surroundfmApp.controller('NavbarCtrl', ['$scope', '$window', '$location', '$moda
   $scope.showLoginModal = function() {
     var loginModal = $modal.open({
       controller: 'LoginCtrl',
-      templateUrl: 'views/partials/login.html'
+      templateUrl: 'partials/login.html'
     });
     loginModal.result.then(function (loginData) {
       if(loginData.username === undefined || loginData.password === undefined) {
@@ -87,6 +87,9 @@ surroundfmApp.controller('NavbarCtrl', ['$scope', '$window', '$location', '$moda
 surroundfmApp.controller('MainCtrl', ['$scope', 'API', function ($scope, api) {
   $scope.register = function() {
     api.register($scope.registration).success(function (registerResponse) {
+      if(!$scope.alerts) {
+        $scope.alerts = [];
+      }
       $scope.alerts.push({type: 'brand-success', msg: registerResponse.message});
     }).error(function (error) {
       if(!$scope.alerts) {
@@ -114,32 +117,33 @@ surroundfmApp.controller('SearchCtrl', ['$scope', '$route', 'API', function ($sc
   };
 }]);
 
-surroundfmApp.controller('MyProfileCtrl', ['$scope', 'API', '$route', 'geolocation', function ($scope, api, $route, geolocation) {
-  if(!$scope.alerts) {
-    $scope.alerts = [];
-  }
-  $scope.alerts.push({type: 'brand-warning', msg: '<span class="glyphicon glyphicon-globe"></span> Waiting for geolocation.'});
-  geolocation.getLocation().then(function (data) {
-    $scope.alerts.splice(0, 1);
-    $scope.geo = {lat: data.coords.latitude, lng: data.coords.longitude};
-    api.receiveSignal($scope.geo).success(function (signalResponse) {
+surroundfmApp.controller('MyProfileCtrl', ['$scope', 'API', '$route', 'geolocation', '$window', function ($scope, api, $route, geolocation, $window) {
+  if($route.current.params.user === JSON.parse($window.localStorage.getItem('user')).user) {
+    if(!$scope.alerts) {
+      $scope.alerts = [];
+    }
+    $scope.alerts.push({type: 'brand-warning', msg: '<span class="glyphicon glyphicon-globe"></span> Waiting for geolocation.'});
+    geolocation.getLocation().then(function (data) {
       $scope.alerts.splice(0, 1);
-      $scope.alerts.push({type: 'brand-success', msg: signalResponse.message});
-    }).error(function (error) {
-      $scope.alerts.push({type: 'brand-danger', msg: error.message});
-    });
-  }, function (error) {
+      $scope.geo = {lat: data.coords.latitude, lng: data.coords.longitude};
+      api.receiveSignal($scope.geo).success(function (signalResponse) {
+        $scope.alerts.splice(0, 1);
+        $scope.alerts.push({type: 'brand-success', msg: signalResponse.message});
+      }).error(function (error) {
+        $scope.alerts.push({type: 'brand-danger', msg: error.message});
+      });
+    }, function (error) {
       $scope.alerts.splice(0, 1);
       $scope.alerts.push({
         type: 'brand-danger',
         msg: error
       });
-    }
-  );
+    });
+  }
   //api.getFeed()
 }]);
 
-surroundfmApp.controller('ProfileCtrl', ['$scope', 'API', '$route', 'Profile', function ($scope, api, $route, Profile) {
+surroundfmApp.controller('ProfileCtrl', ['$scope', 'API', '$route', '$location', function ($scope, api, $route, $location) {
   var unauth = parseInt($route.current.params.unauth, 10);
   if(unauth === 1) {
     if(!$scope.alerts) {
@@ -149,7 +153,6 @@ surroundfmApp.controller('ProfileCtrl', ['$scope', 'API', '$route', 'Profile', f
   }
   api.getProfile($route.current.params.user).success(function (profileData) {
     $scope.profile = profileData;
-    Profile = profileData;
   }).error(function (error) {
     if(!$scope.alerts) {
       $scope.alerts = [];
@@ -158,6 +161,21 @@ surroundfmApp.controller('ProfileCtrl', ['$scope', 'API', '$route', 'Profile', f
   });
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);
+  };
+  $scope.addFriend = function() {
+    var friendObj = {
+      friendName: $scope.profile._id
+    };
+    api.addFriend(friendObj).success(function (addResp) {
+      if(!$scope.alerts) {
+        $scope.alerts = [];
+      }
+      $scope.alerts.push({type: 'brand-success', msg: addResp.message});
+    }).error(function (error, statusCode) {
+      if(statusCode === 401) {
+        $location.path('/');
+      }
+    });
   };
 }]);
 
@@ -180,6 +198,10 @@ surroundfmApp.controller('ProfileEditCtrl', ['$scope', 'API', 'Profile', '$route
   } else {
     $scope.profile = Profile;
   }
+}]);
+
+surroundfmApp.controller('AccordionCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
+  $scope.oneAtATime = true;
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);
   };
@@ -194,12 +216,11 @@ surroundfmApp.controller('ProfileEditCtrl', ['$scope', 'API', 'Profile', '$route
       }
       $scope.alerts.push({type: 'brand-success', msg: emailResponse.message});
     }).error(function (error) {
-        if(!$scope.alerts) {
-          $scope.alerts = [];
-        }
-        $scope.alerts.push({type: 'brand-danger', msg: error.message});
+      if(!$scope.alerts) {
+        $scope.alerts = [];
       }
-    );
+      $scope.alerts.push({type: 'brand-danger', msg: error.message});
+    });
   };
   $scope.editAvatar = function() {
     $scope.showAvatarEdit = true;
@@ -221,22 +242,43 @@ surroundfmApp.controller('ProfileEditCtrl', ['$scope', 'API', 'Profile', '$route
         $scope.alerts = [];
       }
       $scope.alerts.push({type: 'brand-success', msg: passwordResponse.message});
-    }).error(function (error) {
-        if(!$scope.alerts) {
-          $scope.alerts = [];
-        }
-        $scope.alerts.push({type: 'brand-danger', msg: error.message});
+    }).error(function (error, statusCode) {
+      if(statusCode === 401) {
+        $location.path('/');
       }
-    );
+      if(!$scope.alerts) {
+        $scope.alerts = [];
+      }
+      $scope.alerts.push({type: 'brand-danger', msg: error.message});
+    });
     $scope.closeAlert = function(index) {
       $scope.alerts.splice(index, 1);
     };
+  };
+  $scope.linkAccount = function() {
+    var accountObj = {
+      lastFmUser: $scope.profile.lastfm.name
+    };
+    api.linkAccounts(accountObj).success(function (linkResp) {
+      if(!$scope.alerts) {
+        $scope.alerts = [];
+      }
+      $scope.alerts.push({type: 'brand-success', msg: linkResp.message});
+    }).error(function (error, statusCode) {
+      if(statusCode === 401) {
+        $location.path('/');
+      }
+      if(!$scope.alerts) {
+        $scope.alerts = [];
+      }
+      $scope.alerts.push({type: 'brand-danger', msg: error.message});
+    });
   };
 }]);
 
 surroundfmApp.controller('ListViewCtrl', ['$scope', 'API', function ($scope, api) {
   api.getCloseUsers().success(function (userResponse) {
-    $scope.users = userResponse.results;
+    $scope.users = userResponse.users;
   }).error(function (error) {
     if(!$scope.alerts) {
       $scope.alerts = [];
@@ -245,6 +287,29 @@ surroundfmApp.controller('ListViewCtrl', ['$scope', 'API', function ($scope, api
   });
 }]);
 
-/*surroundfmApp.controller('MapViewCtrl', ['$scope', function ($scope) {
-
-}]);*/
+surroundfmApp.controller('MapViewCtrl', ['$scope', 'API', 'geolocation', function ($scope, api, geolocation) {
+  $scope.map = {
+    isReady: false
+  };
+  geolocation.getLocation().then(function (data) {
+    $scope.map = {
+      center: {
+        latitude: data.coords.latitude,
+        longitude: data.coords.longitude
+      },
+      zoom: 15,
+      refresh: true,
+      isReady: true,
+      clickedLatitudeProperty: null,
+      clickedLongitudeProperty: null
+    };
+  });
+  api.getCloseUsers().success(function (userResponse) {
+    $scope.users = userResponse.users;
+  }).error(function (error) {
+    if(!$scope.alerts) {
+      $scope.alerts = [];
+    }
+    $scope.alerts.push({type: 'brand-danger', msg: error.message});
+  });
+}]);
