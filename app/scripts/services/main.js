@@ -13,12 +13,7 @@ surroundfmApp.service('API', ['$http', function ($http) {
       );
     },
     logout: function() {
-      return $http({
-          url: '/api/logout',
-          method: 'POST',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }
-      );
+      return $http.get('/api/logout');
     },
     search: function(query) {
       return $http.get('/api/searchFriends?q=' + query);

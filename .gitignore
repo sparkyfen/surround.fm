@@ -8,3 +8,4 @@ heroku
 dist
 lib/config/env/all.js
 uploads/
+prod.sh

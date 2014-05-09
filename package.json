@@ -19,12 +19,13 @@
     "lastfm": "~0.9.0",
     "googlemaps": "~0.1.9",
     "helmet": "^0.2.1",
-    "colors": "^0.6.2"
+    "colors": "^0.6.2",
+    "multiparty": "^3.2.4"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
-    "grunt-bower-install": "^1.4.0",
+    "grunt-bower-install": "~0.7.0",
     "grunt-concurrent": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "~0.7.0",

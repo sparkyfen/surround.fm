@@ -72,7 +72,6 @@ module.exports = function (grunt) {
           '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
           '<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
         ],
-      
         options: {
           livereload: true
         }
@@ -155,9 +154,9 @@ module.exports = function (grunt) {
     },
 
     // Automatically inject Bower components into the app
-    'bowerInstall': {
+    'bower-install': {
       app: {
-        src: ['<%= yeoman.app %>/views/index.html'],
+        html: '<%= yeoman.app %>/views/index.html',
         ignorePath: '<%= yeoman.app %>/'
       }
     },
@@ -231,7 +230,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: ['{,*/}*.{png,jpg,jpeg,gif}', '!default.png'],
           dest: '<%= yeoman.dist %>/public/images'
         }]
       }
@@ -317,7 +316,8 @@ module.exports = function (grunt) {
           src: [
             'package.json',
             'server.js',
-            'lib/**/*'
+            'lib/**/*',
+            'db/**/*'
           ]
         }]
       },
@@ -403,7 +403,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'bowerInstall',
+      'bower-install',
       'concurrent:server',
       'autoprefixer',
       'express:dev',
@@ -426,7 +426,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'bowerInstall',
+    'bower-install',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
